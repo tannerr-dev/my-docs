@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <article class="markdown">
+    {{- .Content -}}
+
+    <h2>All Pages</h2>
+    <ul>
+    {{ range .Site.RegularPages }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ with .Params.description }}
+        <br><small>{{ . }}</small>
+        {{ end }}
+      </li>
+    {{ end }}
+    </ul>
+  </article>
+{{ end }}

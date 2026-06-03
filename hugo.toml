@@ -1,0 +1,23 @@
+baseURL = 'http://localhost:1313/'
+title = 'Pockist Docs'
+theme = 'hugo-book'
+languageCode = 'en-us'
+
+disableKinds = ['taxonomy', 'taxonomyTerm']
+
+[markup]
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 1
+
+[markup.highlight]
+  style = 'monokai'
+  lineNos = true
+
+[params]
+  BookTheme = 'dark'
+  BookSection = '*'
+  BookSearch = true
+  BookToC = true
