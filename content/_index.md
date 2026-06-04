@@ -2,6 +2,6 @@
 title: "Home"
 ---
 
-# Welcome to Pockist Docs
+# Welcome to my docs
 
 Browse the documentation pages below.
