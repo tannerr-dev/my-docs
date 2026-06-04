@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <article class="markdown">
+    {{- .Content -}}
+
+    <h2>Pages</h2>
+    <ul>
+    {{ range .Pages }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{- partial "docs/title" . -}}</a>
+        {{ with .Params.description }}
+        <br><small>{{ . }}</small>
+        {{ end }}
+      </li>
+    {{ end }}
+    </ul>
+  </article>
+{{ end }}

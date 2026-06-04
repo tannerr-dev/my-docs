@@ -1,6 +1,6 @@
-# Pockist Docs
+# My Docs
 
-A dark-themed Hugo documentation site for the Pockist project. Drop markdown files into the `content/` folder and Hugo auto-generates routes, a sidebar, and a homepage listing.
+A dark-themed Hugo documentation site. Drop markdown files into the `content/` folder and Hugo auto-generates routes, a sidebar, and a homepage listing.
 
 ---
 
@@ -19,7 +19,7 @@ Install Hugo: https://gohugo.io/installation/
 
 ```bash
 git clone <repo-url>
-cd pockist-docs
+cd my-docs
 ```
 
 ### 2. Initialize the theme submodule
@@ -111,7 +111,7 @@ This generates the static site into the `public/` directory. Deploy the contents
 ## Project Structure
 
 ```
-pockist-docs/
+my-docs/
 ├── content/                  # All markdown content
 │   ├── _index.md             # Homepage (must be named _index.md)
 │   ├── db-and-components.md  # Existing doc
