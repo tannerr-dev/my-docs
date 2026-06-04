@@ -1,6 +1,6 @@
 # My Docs
 
-A dark-themed Hugo documentation site. Drop markdown files into the `content/` folder and Hugo auto-generates routes, a sidebar, and a homepage listing.
+A dark-themed Hugo documentation site. Drop markdown files into `content/` folders and Hugo auto-generates routes, a sidebar, a grouped homepage, and section index pages.
 
 ---
 
@@ -44,7 +44,7 @@ Open `http://localhost:1313/` in your browser.
 
 ## Adding Content
 
-### Drop a file in `content/`
+### Drop a file in an existing folder
 
 ```bash
 echo '---
@@ -55,25 +55,31 @@ weight: 20
 
 # My New Doc
 
-Your markdown here.' > content/my-new-doc.md
+Your markdown here.' > content/javascript/my-new-doc.md
 ```
 
 Hugo will:
-- Auto-generate the route at `/my-new-doc/`
-- Add it to the sidebar navigation
-- Add it to the homepage flat list
+- Auto-generate the route at `/javascript/my-new-doc/`
+- Add it to the sidebar navigation under **JavaScript**
+- Add it to the **JavaScript** section on the homepage
+- Add it to the `/javascript/` section index page
 - Apply dark syntax highlighting to code blocks
 
-### Add a description
-
-The homepage list uses the `description` frontmatter field as a subtitle. If you omit it, Hugo falls back to the page summary.
-
-### Use subfolders (future)
+### Create a new section (folder)
 
 ```bash
 mkdir content/architecture
 echo '---
+title: "Architecture"
+---
+
+# Architecture
+
+Docs about system architecture.' > content/architecture/_index.md
+
+echo '---
 title: "Frontend"
+description: "How the frontend is structured"
 ---
 
 # Frontend Architecture
@@ -81,7 +87,15 @@ title: "Frontend"
 ...' > content/architecture/frontend.md
 ```
 
-Hugo creates `/architecture/frontend/`, nests it in the sidebar, and the homepage still links to it.
+Hugo will:
+- Create `/architecture/frontend/` automatically
+- Add **Architecture** as a new heading on the homepage
+- Nest it in the sidebar navigation
+- Create a section index page at `/architecture/` listing all pages inside
+
+### Add a description
+
+The homepage and section index pages use the `description` frontmatter field as a subtitle. If you omit it, only the title is shown.
 
 ---
 
@@ -90,9 +104,9 @@ Hugo creates `/architecture/frontend/`, nests it in the sidebar, and the homepag
 ```yaml
 ---
 title: "Page Title"          # Required
-description: "Subtitle"       # Optional — shown on homepage
+description: "Subtitle"       # Optional — shown on homepage & section indexes
 date: 2026-06-02              # Optional
-weight: 10                    # Optional — controls sidebar order (lower = first)
+weight: 10                    # Optional — controls order (lower = first)
 ---
 ```
 
@@ -112,16 +126,25 @@ This generates the static site into the `public/` directory. Deploy the contents
 
 ```
 my-docs/
-├── content/                  # All markdown content
-│   ├── _index.md             # Homepage (must be named _index.md)
-│   ├── db-and-components.md  # Existing doc
-│   └── (add more here)
+├── content/                       # All markdown content
+│   ├── _index.md                  # Homepage intro (must be named _index.md)
+│   ├── chats/
+│   │   ├── _index.md              # Section intro & title for "Chats"
+│   │   └── chat.md                # Page inside section
+│   ├── javascript/
+│   │   ├── _index.md              # Section intro & title for "JavaScript"
+│   │   └── js-snippets.md         # Page inside section
+│   └── (add more folders here)
 ├── layouts/
-│   └── index.html            # Custom homepage layout
+│   ├── index.html                 # Custom homepage layout (grouped by section)
+│   └── _default/
+│       └── section.html           # Section index page layout
+├── assets/
+│   └── _custom.scss               # Custom styles (darker background, etc.)
 ├── themes/
-│   └── hugo-book/            # Git submodule — docs theme
-├── hugo.toml                 # Site config (dark mode, monokai, search, etc.)
-└── README.md                 # This file
+│   └── hugo-book/                 # Git submodule — docs theme
+├── hugo.toml                      # Site config (dark mode, monokai, search, etc.)
+└── README.md                      # This file
 ```
 
 ---
@@ -129,10 +152,13 @@ my-docs/
 ## Theme & Styling
 
 - **Theme:** [Hugo Book](https://github.com/alex-shpak/hugo-book) (v9, dark mode)
+- **Background:** Custom `#121212` via `assets/_custom.scss`
 - **Syntax highlighting:** Chroma with `monokai` style
 - **Search:** Built-in Flexsearch, enabled
 - **Sidebar:** Auto-generated from all content in `content/`
 - **Table of contents:** Enabled on every page
+- **Homepage:** Grouped by section with links to section index pages
+- **Section pages:** Auto-generated at `/folder-name/` listing pages inside
 
 ---
 
