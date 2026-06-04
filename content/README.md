@@ -112,6 +112,49 @@ weight: 10                    # Optional — controls order (lower = first)
 
 ---
 
+## Ordering Content
+
+Hugo sorts both **sections** (folders on the homepage) and **pages** inside each section using the same rules:
+
+1. **`weight`** — lower numbers appear first (e.g., `weight: 10` before `weight: 20`)
+2. **`date`** — newer items come first if no weight is set
+3. **`title`** — alphabetical, if neither weight nor date is set
+
+### Control section order on the homepage
+
+Add `weight` to each section's `_index.md`:
+
+```yaml
+# content/pockist/_index.md
+---
+title: "Pockist"
+weight: 10
+---
+
+# content/javascript/_index.md
+---
+title: "JavaScript"
+weight: 20
+---
+```
+
+Pockist will appear before JavaScript on the homepage.
+
+### Control page order inside a section
+
+Add `weight` to individual pages:
+
+```yaml
+---
+title: "Dialog Service"
+weight: 10
+---
+```
+
+This also controls the order in the sidebar and on the section index page.
+
+---
+
 ## Building for Production
 
 ```bash
