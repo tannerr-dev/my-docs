@@ -234,3 +234,12 @@ Then verify compatibility and restart the server.
 ## Original File Reference
 
 The original `db-and-components.md` (without Hugo frontmatter) is preserved in the repo root. The version Hugo renders is in `content/db-and-components.md`.
+
+
+
+## my extra thing
+symlink the readme into the content
+```bash
+ln -s $(pwd)/README.md $(pwd)/content/README.md
+```
+

@@ -5,6 +5,12 @@
 
 ---
 
+
+symlink the readme into the content
+```bash
+ln -s $(pwd)/README.md $(pwd)/content/README.md
+```
+
 ## workspace install script
 
  - folder with resources and an install script inside that copies all the config files
