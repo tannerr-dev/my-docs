@@ -165,6 +165,53 @@ This generates the static site into the `public/` directory. Deploy the contents
 
 ---
 
+## Deploying with rsync
+
+`rsync` is the fastest way to deploy to a remote server — it only transfers changed files and can delete old ones automatically.
+
+### Basic command
+
+```bash
+hugo --gc --minify
+rsync -avz --delete public/ user@your-server.com:/var/www/html/
+```
+
+### Common flags
+
+| Flag | What it does |
+|------|-------------|
+| `-a` | Archive mode (preserves permissions, timestamps, recursive) |
+| `-v` | Verbose — shows which files are transferring |
+| `-z` | Compress during transfer (faster on slow networks) |
+| `--delete` | **Crucial** — removes files on the server that no longer exist in `public/` |
+| `--dry-run` | Preview what *would* happen without actually doing it (test first!) |
+
+### Example deploy script
+
+Create `deploy.sh` in the project root:
+
+```bash
+#!/bin/bash
+set -e
+
+echo "Building site..."
+hugo --gc --minify
+
+echo "Deploying to server..."
+rsync -avz --delete public/ user@your-server.com:/var/www/html/
+
+echo "Done!"
+```
+
+Make it executable and run it:
+
+```bash
+chmod +x deploy.sh
+./deploy.sh
+```
+
+---
+
 ## Project Structure
 
 ```
@@ -237,9 +284,25 @@ The original `db-and-components.md` (without Hugo frontmatter) is preserved in t
 
 
 
-## my extra thing
-symlink the readme into the content
+## Symlink the README into Content
+
+If you want the root `README.md` to also appear as a page on the site (e.g., at `/readme/`), you can symlink it into `content/` instead of copying:
+
 ```bash
+rm content/README.md  # remove existing copy if present
 ln -s $(pwd)/README.md $(pwd)/content/README.md
+```
+
+Hugo follows symlinks, so any edits to the root `README.md` are automatically reflected in the build. No more manual copying.
+
+**Note:** If the README doesn't have front matter, Hugo will derive the title from the filename ("Readme"). Add this to the top of `README.md` to set a custom title:
+
+```markdown
+---
+title: "My Docs"
+---
+
+# My Docs
+...
 ```
 
