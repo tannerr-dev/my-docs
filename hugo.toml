@@ -1,4 +1,4 @@
-baseURL = 'docs.tannerr.dev/'
+baseURL = 'https://docs.tannerr.dev/'
 title = 'my docs'
 theme = 'hugo-book'
 languageCode = 'en-us'

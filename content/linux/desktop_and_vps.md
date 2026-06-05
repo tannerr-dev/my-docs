@@ -1,75 +1,45 @@
+# Linux Commands
 
-[dev-notes](dev-notes.md)
+For Ubuntu (debian) based systems.
 
-[install-scripts](install-scripts.md)
+## Everyday things
 
----
-
-
-symlink the readme into the content
+### Date and time
 ```bash
-ln -s $(pwd)/README.md $(pwd)/content/README.md
+date
 ```
 
-## workspace install script
-
- - folder with resources and an install script inside that copies all the config files
-    - maybe pull down from repos actually
-- repos
-    - [x] kanata
-    - [x] i3
-    - [ ] .bashrc (remove sensitive data?)
-    - [ ] bashh (without ssh keys!!!)
-
-## thoughts
-- the ai chat interface is great. we all know that that is everyones preferred way to search. vector serch is king, ai is great for this. ai will hallucinate a response though if you just ask a model for an answer. so why don't we just set up our intelligence in a way that the ai can return? return me the human written doc that talks about this.
-- present the human written data first. why do we jump straight to summarizing the human written knowledge. we should not think the carefully crafted words of a human so lightly that we scrub it of all humanity by passing it through a neural network to make sanitized computer response. we should appreciate more the time people take to gather knowledge and pass it to the next person and pass it down in history. why would we risk a prediction model hallucination on such important information. 
-- 
-
-
-## code snippets and notes
-
-### daily
+### Audio
+#### Volume
 ```bash
 alsamixer
+```
+#### Audio Drivers
+WirePlumber Control, PipeWire session manager. (audio / video drivers)
+```bash
 wpctl status
-
-date
-
+```
+### Screen Shot
+Take a screenshot
+```bash
 import screenshot.png
-
-tar -xjf file.tar.gz2
-mv waterfox ~/.local/opt/
-~/.local/opt/waterfox/waterfox
-
-
-# find display name
-xrandr -q | grep " connected"
-# change brightness
-xrandr --output <display name> --brightness 0.5
-
-xrandr --output eDP-1 --brightness 0.5
-
-#nightshift
-redshift -O 5000
-redshift -O 3000
-
-# reset
-redshift -x
+```
+### Night Shade
+```bash
+redshift -O 5000 # intensity 5000
+redshift -O 3000 # lower the number the darker it gets
+redshift -x # resets
 ```
 
-## Using xrandr
-
-**xrandr** is the most common tool for managing displays in X11-based window managers like i3wm.
-
-### List connected displays
-```
+## Display
+List connected displays
+```bash
 xrandr
 ```
 This shows all connected monitors and their current resolutions and refresh rates.
 
-### Set display resolution and position
-```
+Set display resolution and position
+```bash
 xrandr --output HDMI-1 --mode 1920x1080 --rate 60
 
 #mirror
@@ -78,12 +48,58 @@ xrandr --output HDMI-2 --same-as eDP-1 --mode 1920x1080
 xrandr --output HDMI-2 --mode 1920x1080 --pos 0x0 --output eDP-1 --mode 1920x1080 --pos 1920x0
 
 ```
-#### bluetooth controls
-
+Search for connected display names
+```bash
+xrandr -q | grep " connected"
 ```
 
-#### bluetooth controls
+change brightness
+```bash
+xrandr --output <display name> --brightness 0.5
+
+xrandr --output eDP-1 --brightness 0.5
 ```
+
+## WIFI
+**List available networks:**
+```bash
+nmcli device wifi list
+```
+
+**Connect to a network:**
+```bash
+nmcli device wifi connect "<SSID>" password "<PASSWORD>"
+```
+
+**Disconnect from a network:**
+```bash
+nmcli device disconnect wlan0
+```
+
+**Show connection status:**
+```bash
+nmcli connection show
+nmcli device status
+```
+
+**Enable/disable WiFi:**
+```bash
+nmcli radio wifi on
+nmcli radio wifi off
+```
+
+**Forget a saved network:**
+```bash
+nmcli connection delete "<SSID>"
+```
+
+A terminal-based interface that's easier than raw commands:
+```bash
+nmtui
+```
+## Bluetooth
+
+```bash
 bluetoothctl power on
 bluetoothctl power off
 
@@ -98,9 +114,14 @@ bluetoothctl disconnect <MAC_ADDRESS>
 bluetoothctl devices
 ```
 To create a connection with the built-in utils, you can follow this slightly more manual process using bluetoothctl.
+to get the MAC address of your device
 
-hcitool scan  # to get the MAC address of your device
+```bash
+hcitool scan  
+```
 
+use bluetoothctl in interactive mode
+```
 bluetoothctl
 power on  # in case the bluez controller power is off 
 agent on
@@ -112,12 +133,13 @@ connect MAC_ADDRESS
 
 sudo hcitool cc 94:23:6E:6F:23:9D
 
+```
 
 
 
 Device F8:73:DF:CF:A8:ED Beats Studio Pro
 
-
+```
 bluetoothctl
 scan on
 
@@ -125,72 +147,45 @@ pair F8:73:DF:CF:A8:ED
 trust F8:73:DF:CF:A8:ED
 connect F8:73:DF:CF:A8:ED
 
-
 bluetoothctl devices
 bluetoothctl scan on
 
 bluetoothctl pair F8:73:DF:CF:A8:ED
 bluetoothctl trust F8:73:DF:CF:A8:ED
 bluetoothctl connect F8:73:DF:CF:A8:ED
+```
 
 then quickly pair and connect with bluetoothctl
 
 You can add keybindings to your `~/.config/i3/config` file for quick access:
 
+```
 bluetoothctl info F8:73:DF:CF:A8:ED
 
-
-
-```
-# Toggle Bluetooth on/off
-bindsym $mod+b exec bluetoothctl power on
-bindsym $mod+shift+b exec bluetoothctl power off
 ```
 
-#### WIFI
-**List available networks:**
-```bash
-nmcli device wifi list
-```
+## Basic unix/cli programs
 
-**Connect to a network:**
-```
-nmcli device wifi connect "<SSID>" password "<PASSWORD>"
-```
-
-**Disconnect from a network:**
-```
-nmcli device disconnect wlan0
-```
-
-**Show connection status:**
-```
-nmcli connection show
-nmcli device status
-```
-
-**Enable/disable WiFi:**
-```
-nmcli radio wifi on
-nmcli radio wifi off
-```
-
-**Forget a saved network:**
-```
-nmcli connection delete "<SSID>"
-```
-
-A terminal-based interface that's easier than raw commands:
-```
-nmtui
-```
-
-### beginner
 ```bash
 ps aux | head -n 1
+```
+
+```
 cat /etc/issue
+```
+
+```
 ls /var/run/reboot-required
-git config --global core.editor "vim"
+```
+
+open a tar file? or make one..
+```
+tar -xjf file.tar.gz2
+```
+waterfox?
+```
+mv waterfox ~/.local/opt/
+~/.local/opt/waterfox/waterfox
 ```
 
 ```bash
@@ -270,8 +265,11 @@ sudo rm /var/crash/*
 
 
 
-# json parser?
+### json parser?
+```
 jq
+
+```
 
 
 
@@ -486,6 +484,10 @@ import conf.d/*.Caddyfile
 
 
 ```
+symlink the readme into the content
+```bash
+ln -s $(pwd)/README.md $(pwd)/content/README.md
+```
 
 ```
 # github can create ssh deploy keys for cloning repos
@@ -521,12 +523,6 @@ pip install -r rquirements.txt
 air
 ```
 
-hetzner
-```
-Login:
-K0639376625
-Key:
-cDWPmLd75tazZkkB
 ```
 
 7. [docker](dev/dir/docker.md)
@@ -614,39 +610,14 @@ alias's
 
 alias gb='bash /home/tannerr/bash-scripts/gb.sh'
 
-alias l='bash $HOME/bashh/l.sh'
-alias c='bash $HOME/bashh/c.sh'
-alias lsdd='bash $HOME/bashh/lsdd.sh'
-alias lsddd='bash $HOME/bashh/lsddd.sh'
-alias sshh='bash $HOME/bashh/sshh.sh'
-alias glog='bash $HOME/bashh/glog.sh'
-alias gst='bash $HOME/bashh/gst.sh'
-alias gstt='bash $HOME/bashh/gstt.sh'
-alias ga='bash $HOME/bashh/ga.sh'
-alias gaa='bash $HOME/bashh/gaa.sh'
-alias gb='bash $HOME/bashh/gb.sh'
-alias kan='bash $HOME/bashh/kan.sh'
-alias kann='cd ~/.config/kanata-config'
-alias nved='bash $HOME/bashh/nved.sh'
-alias cl='bash $HOME/bashh/cl.sh'
-alias cld='bash $HOME/bashh/cld.sh'
-alias lsa='lsd -a --tree --depth 1'
 alias la='ls -a'
 alias clsa='bash $HOME/bashh/clsa.sh'
 alias src='bash $HOME/bashh/src.sh'
-
-alias apps='cd ~/data/apps'
-alias app='cd ~/data/apps/data-app/'
-# alias app='cd ~/projects/apps'
-alias chatt='cd ~/data/apps/chat-app'
-alias chattt='cd ~/data/apps/chat-app/src/content/chat'
 alias wttr='curl https://wttr.in/Minneapolis'
 
 alias src='source /home/tannerr/.bashrc'
-alias claude='cd ~/data/programs/claude'
 
 alias rrestart='docker build . -t tannerrrr/data-app-image && docker push tannerrrr/data-app-image:latest'
-alias tannerr='bash $HOME/bashh/tannerr.sh'
 
 ```
 

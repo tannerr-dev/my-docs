@@ -1,5 +1,6 @@
 ---
 title: "JavaScript"
+weight: 3
 ---
 
 # JavaScript
