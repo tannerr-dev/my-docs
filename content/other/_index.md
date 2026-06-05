@@ -1,6 +1,6 @@
 ---
 title: "Other"
-weight: 3
+weight: 5
 ---
 
 # Other

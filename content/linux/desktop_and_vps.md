@@ -94,10 +94,13 @@ nmcli connection delete "<SSID>"
 ```
 
 A terminal-based interface that's easier than raw commands:
+
 ```bash
 nmtui
 ```
 ## Bluetooth
+
+Bloothooth was so annoying I made a [CLI/TUI wrapper called `bt`](https://github.com/tannerr-dev/bt-cli)
 
 ```bash
 bluetoothctl power on
@@ -113,6 +116,7 @@ bluetoothctl disconnect <MAC_ADDRESS>
 
 bluetoothctl devices
 ```
+
 To create a connection with the built-in utils, you can follow this slightly more manual process using bluetoothctl.
 to get the MAC address of your device
 
@@ -121,6 +125,7 @@ hcitool scan
 ```
 
 use bluetoothctl in interactive mode
+
 ```
 bluetoothctl
 power on  # in case the bluez controller power is off 

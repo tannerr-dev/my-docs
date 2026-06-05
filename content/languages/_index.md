@@ -1,6 +1,6 @@
 ---
 title: "Languages"
-weight: 3
+weight: 2
 ---
 
 # Programming Lanuages
