@@ -15,6 +15,7 @@ disableKinds = ['taxonomy', 'taxonomyTerm']
 [markup.highlight]
   style = 'monokai'
   lineNos = true
+  guessSyntax = true
 
 [params]
   BookTheme = 'dark'
