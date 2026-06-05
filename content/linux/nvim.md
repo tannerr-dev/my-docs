@@ -1,22 +1,9 @@
+---
+weight: 4
+---
+# nvim
 
-[[dev-notes]]
-
-go back and write the plugin from primes vim course, would be useful for coverting md vault to html links by exporting the dir ls into the buffer and adding the paths
-this line is used to source vim plugins from the init.lua
-```
-vim.cmd.source(vim.fn.stdpath("config") .. "/plugin.vim")   
-
-```
-## set up neovim properly from scratch
-- [ ] lsp
-	- [ ] markdown_oxide?
-	- [ ] codebook?
-	- [ ] denols
-	- [ ] dprint?
-	- [ ] htmx
-
-- [X] highlighting
-- [X] autopairs?
+## this is NOT even close to complete and is a mess
 
 In Vim, you can jump to a matching parenthesis by pressing the `%` key when your cursor is on an opening or closing parenthesis. This feature works for various types of brackets, including parentheses, square brackets, and curly braces
 
@@ -28,6 +15,7 @@ open manual docs
 ```
 
 shift I inserts at the beginning
+
 zz centers the page on the cursor
 
 ctrl w then the hjkl for window selection instead of ctrl ww
@@ -231,3 +219,19 @@ In Neovim, recording allows you to save a sequence of commands to a register for
 
 
 
+go back and write the plugin from primes vim course, would be useful for coverting md vault to html links by exporting the dir ls into the buffer and adding the paths
+this line is used to source vim plugins from the init.lua
+```
+vim.cmd.source(vim.fn.stdpath("config") .. "/plugin.vim")   
+
+```
+## set up neovim properly from scratch
+- [ ] lsp
+	- [ ] markdown_oxide?
+	- [ ] codebook?
+	- [ ] denols
+	- [ ] dprint?
+	- [ ] htmx
+
+- [X] highlighting
+- [X] autopairs?

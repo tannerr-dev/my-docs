@@ -1,3 +1,6 @@
+---
+weight: 3
+---
 # Git
 ## Set Up
 changing git default interactive commit message editor

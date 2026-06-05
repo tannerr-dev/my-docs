@@ -1,3 +1,7 @@
+---
+weight: 5
+---
+
 # Neovim Configuration
 
 A single-file Neovim configuration using [lazy.nvim](https://github.com/folke/lazy.nvim) for plugin management. This setup includes fuzzy finding, file tree navigation, syntax highlighting, LSP support, and autocompletion.
