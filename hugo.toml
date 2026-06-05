@@ -14,7 +14,7 @@ disableKinds = ['taxonomy', 'taxonomyTerm']
 
 [markup.highlight]
   style = 'monokai'
-  lineNos = true
+  lineNos = false
   guessSyntax = true
 
 [params]
