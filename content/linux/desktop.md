@@ -1,4 +1,5 @@
 ---
+title: "desktop"
 weight: 1
 ---
 # Desktop Commands

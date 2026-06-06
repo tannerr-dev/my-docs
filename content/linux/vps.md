@@ -1,5 +1,5 @@
 ---
-title: "VPS"
+title: "vps"
 weight: 1
 ---
 
