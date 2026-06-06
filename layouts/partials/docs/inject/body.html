@@ -1,0 +1,53 @@
+<script>
+(function () {
+  'use strict';
+
+  function initCopyButtons() {
+    const codeBlocks = document.querySelectorAll('.markdown pre');
+
+    codeBlocks.forEach(function (pre) {
+      // Skip if already processed
+      if (pre.parentElement.classList.contains('code-block-wrapper')) return;
+
+      // Wrap the <pre> in a relative-positioned container
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      // Create the copy button
+      const btn = document.createElement('button');
+      btn.className = 'copy-code-btn';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Copy code to clipboard');
+      btn.textContent = 'Copy';
+
+      btn.addEventListener('click', function () {
+        const code = pre.querySelector('code');
+        const text = code ? code.innerText : pre.innerText;
+
+        navigator.clipboard.writeText(text).then(function () {
+          const originalText = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+
+          setTimeout(function () {
+            btn.textContent = originalText;
+            btn.classList.remove('copied');
+          }, 1500);
+        }).catch(function (err) {
+          console.error('Failed to copy: ', err);
+        });
+      });
+
+      wrapper.appendChild(btn);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCopyButtons);
+  } else {
+    initCopyButtons();
+  }
+})();
+</script>

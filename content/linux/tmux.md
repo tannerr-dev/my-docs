@@ -1,3 +1,7 @@
+---
+title: "git"
+weight: 3
+---
 # tmux
 ---
 

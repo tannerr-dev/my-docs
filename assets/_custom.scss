@@ -20,4 +20,40 @@ html {
   }
 }
 
+/* --- Copy Button Styles --- */
+.code-block-wrapper {
+  position: relative;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--body-font-color, #abb2bf);
+  background: var(--gray-200, rgba(255, 255, 255, 0.1));
+  border: 1px solid var(--gray-500, rgba(255, 255, 255, 0.15));
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+
+.code-block-wrapper:hover .copy-code-btn,
+.copy-code-btn:focus {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  background: var(--gray-500, rgba(255, 255, 255, 0.2));
+}
+
+.copy-code-btn.copied {
+  color: #98c379;
+  border-color: #98c379;
+}
+
 

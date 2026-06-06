@@ -1,5 +1,4 @@
 ---
-title: "Desktop"
 weight: 1
 ---
 # Desktop Commands
@@ -346,7 +345,7 @@ Change the active tab when scroll events occur on tab strip. – Linux
 
 
 
-
+## input configuration
 ### tap to click START trackpad settings
 #### NOTES
 Check out the xinput command. 
@@ -407,7 +406,7 @@ xinput set-prop 10 190 1, 0, 0, 0, 1, 0, 0, 0, 3
 ```
 the higher $ctmVal in this case, the slower the mouse speed
 
-
+---
 
 THEME NONSENSE START
 tried this but doesn't work
@@ -432,9 +431,6 @@ with contents:
 default=gtk;wlr
 ```
 
-
-
-
 Trackpad scroll
 Edit /usr/share/X11/xorg.conf.d/40-libinput.conf
 Add there Option "NaturalScrolling" "True" like this:
@@ -450,5 +446,205 @@ EndSection
 
 ---
 
+# ubuntu setup bashscript
+this is my work in progress of what will be an install script
 
+```bash
+#!/usr/bin/env bash
+
+# In the home directory
+sudo apt update
+sudo apt upgrade
+
+# fail2ban
+
+# git settings
+git config --global core.editor "vim"
+
+# Install github cli
+# https://cli.github.com/
+
+(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
+	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& sudo apt update \
+	&& sudo apt install gh -y
+
+sudo apt update
+sudo apt install gh
+
+# Pull latest bashh repo
+gh repo clone tannerr-dev/bashh
+
+# pull latest vault repo
+gh repo clone tannerr-dev/vault
+
+
+
+## neovim
+### nvim dependencies
+sudo apt install make
+sudo apt install gcc
+sudo apt install ripgrep
+sudo apt install fd-find
+sudo apt install fonts-noto-color-emoji
+sudo apt install xclip
+
+### upload .conf/nvim/init.lua to github...
+sudo apt-get install ninja-build gettext cmake curl build-essential git
+git clone https://github.com/neovim/neovim
+cd neovim
+rm -r build/  # clear the CMake cache
+make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim"
+make install
+echo 'export PATH="$HOME/neovim/bin:$PATH"' >> ~/.bashrc
+cd ~
+source ~/.bashrc
+cd .config
+gh repo clone tannerr-dev/nvim
+
+
+
+## Kanata set up (requires rust)
+### Install rust
+### https://www.rust-lang.org/learn/get-started
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+cargo --version
+
+### Install kanata
+### https://github.com/jtroo/kanata
+
+cargo install kanata
+
+###Pull latest kanata config from github
+cd .config
+gh repo clone tannerr-dev/kanata-config
+cd ~
+sudo groupadd uinput
+sudo usermod -aG input ttannerr
+sudo usermod -aG uinput ttannerr
+sudo touch /etc/udev/rules.d/01-kanata.rules
+# echo
+# KERNEL=="UINPUT", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+
+### On Linux and macOS, this may not work without `sudo`, see below
+### kanata --cfg <your_configuration_file>
+
+
+# Install lsd
+apt install lsd
+
+## golang
+### need to download from website
+### mv the file to the home directory
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf go1.25.2.linux-amd64.tar.gz
+### also add this to the bashrc
+export PATH=$PATH:/usr/local/go/bin
+
+## air
+go install github.com/air-verse/air@latest
+export PATH=$PATH:/home/ttannerr/go/bin/air
+
+## opencode
+curl -fsSL https://opencode.ai/install | bash
+
+## install chrome
+sudo apt install chromium-browser
+
+## install brave
+curl -fsS https://dl.brave.com/install.sh | sh
+
+## docker
+## https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+### Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# add user to docker group to run commands without sudo
+sudo usermod -a -G docker ttannerr
+## needs a session refresh to take effect
+
+## install psql client
+sudo apt install postgresql-client
+
+## install hugo
+sudo apt install hugo
+
+# Install obsidian
+# sudo dpkg -i Downloads/obsidian_1.8.10_amd64.deb
+
+## C libraries
+sudo apt-get install build-essential
+sudo apt-get install clang
+sudo apt-get install libc6-dev
+
+## Treesitter CLI
+cargo install --locked tree-sitter-cli
+
+# maybe fastfetch now?
+sudp apt install neofetch
+
+## i3
+sudo apt install i3
+## needs to update config file in .config/i3
+sudo apt install rofi
+sudo apt install feh
+sudo apt install nemo
+
+## lazy git
+go install github.com/jesseduffield/lazygit@latest
+
+# https://yazi-rs.github.io/docs/installation/#debian
+apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
+## zoxide
+# cargo install zoxide --locked
+# Add this to the end of your config file (usually ~/.bashrc):
+# eval "$(zoxide init bash)"
+
+#https://yazi-rs.github.io/docs/installation#source
+# Setup the latest stable Rust toolchain via rustup:
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+
+# Clone the repository and build Yazi:
+git clone https://github.com/sxyazi/yazi.git
+cd yazi
+cargo build --release --locked
+# Then, add yazi and ya to your $PATH:
+mv target/release/yazi target/release/ya /usr/local/bin/
+
+# https://yazi-rs.github.io/docs/quick-start/
+# ## move this function into bashrc to exit yazi into new dir
+#function y() {
+# 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+# 	command yazi "$@" --cwd-file="$tmp"
+# 	IFS= read -r -d '' cwd < "$tmp"
+# 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+# 	rm -f -- "$tmp"
+# }
+
+## night mode tint
+sudo apt install redshift
+
+## git diff
+cargo install giff
+```
 
