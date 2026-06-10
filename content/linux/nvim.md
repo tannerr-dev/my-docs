@@ -8,11 +8,12 @@ weight: 4
 https://neovim.io/doc/install/
 <br>
 https://github.com/nvim-lua/kickstart.nvim
+## my config repo
+https://github.com/tannerr-dev/neovim-config
 
 ---
 
 # Neovim Configuration
-readme from my [repo](https://github.com/tannerr-dev/neovim-config).
 
 A single-file Neovim configuration using [lazy.nvim](https://github.com/folke/lazy.nvim) for plugin management. This setup includes fuzzy finding, file tree navigation, syntax highlighting, LSP support, and autocompletion.
 
@@ -44,6 +45,8 @@ A single-file Neovim configuration using [lazy.nvim](https://github.com/folke/la
 | `cmp-cmdline` | Command-line completion (`:` and `/`) |
 | `LuaSnip` | Snippet engine |
 | `friendly-snippets` | VS Code-style snippet collection |
+| `nvim-ufo` | LSP-powered code folding (with `promise-async`) |
+| `vim-fugitive` | Git integration (status, diff, blame, log, etc.) |
 
 ---
 
@@ -90,6 +93,31 @@ A single-file Neovim configuration using [lazy.nvim](https://github.com/folke/la
 | `<C-S-N>` | Next Harpoon file |
 | `<C-e>` | Open Harpoon window in Telescope |
 
+### Git (Fugitive)
+
+These keymaps are available in any buffer. See `:help fugitive` for the full command list.
+
+| Key | Action |
+|-----|--------|
+| `<leader>gs` | Git [S]tatus (opens `:G` interactive window) |
+| `<leader>gd` | Git [D]iff (`:Gdiffsplit`) |
+| `<leader>gb` | Git [B]lame (`:G blame`) |
+| `<leader>gl` | Git [L]og (`:G log`) |
+| `<leader>gw` | Git [W]rite (stage current file) |
+
+### Folds (nvim-ufo)
+
+These keymaps work in any buffer. Folds are powered by the LSP when available, falling back to indentation.
+
+| Key | Action |
+|-----|--------|
+| `zc` | Close fold|
+| `zo` | Open fold |
+| `zC` | Close all folds |
+| `zO` | Open all folds |
+
+> Standard Vim fold commands (`za`, `zo`, `zc`, etc.) also work. See `:help folding`.
+
 ### LSP (Language Server Protocol)
 
 These keymaps are active when an LSP server is attached to the current buffer.
@@ -119,6 +147,53 @@ These keymaps are active when an LSP server is attached to the current buffer.
 | `<C-Space>` | Trigger completion manually |
 | `<Tab>` | Expand snippet or jump forward |
 | `<S-Tab>` | Jump snippet backward |
+
+---
+
+## How to Use: Folds
+
+Folds let you collapse and expand blocks of code. This config uses [`nvim-ufo`](https://github.com/kevinhwang91/nvim-ufo) with the LSP as the primary provider, so folds match your language server's understanding of the code structure.
+
+### Basic Commands
+
+| Command | Action |
+|---------|--------|
+| `za` | Toggle fold under cursor |
+| `zo` | Open fold under cursor |
+| `zc` | Close fold under cursor |
+| `zR` | Open all folds (global) |
+| `zM` | Close all folds (global) |
+| `zr` | Open more folds (incremental) |
+| `zm` | Close more folds (incremental) |
+
+### Quick Tips
+
+- **Navigate inside a closed fold**: Move the cursor over the fold indicator and press `za` to open it.
+- **Folds update automatically** when you edit the file.
+- **No LSP?** Folds will fall back to indentation-based folding.
+
+---
+
+## Sign Column (Diagnostics)
+
+The column to the left of the line numbers is the **sign column**. It appeared after adding LSP support because language servers now report issues directly in the editor.
+
+### Symbols
+
+| Symbol | Meaning | Severity |
+|--------|---------|----------|
+| `E` | Error | Code that will not compile or run |
+| `W` | Warning | Suspicious or deprecated code |
+| `I` | Information | e.g., unused variables |
+| `H` | Hint | Style suggestions or quick fixes |
+
+### Diagnostic Keymaps
+
+| Key | Action |
+|-----|--------|
+| `<leader>e` | Show full diagnostic message in a floating window |
+| `[d` | Jump to previous diagnostic |
+| `]d` | Jump to next diagnostic |
 
 ---
 
@@ -320,8 +395,19 @@ Ensure your terminal supports true color and you have a Nerd Font selected.
 | `:LspInfo` | Show active LSP clients for current buffer |
 | `:LspRestart` | Restart LSP client for current buffer |
 | `:Telescope` | Open Telescope picker |
+| `:G` | Open Fugitive git status window |
+| `:Gdiffsplit` | Diff current file against index |
+| `:G blame` | Blame current file |
+| `:G log` | Git log |
+| `:G write` | Stage current file |
+| `:G read` | Checkout current file |
 
-## my commands and notes
+
+
+---
+
+
+# my commands and notes
 
 `%`  jump to a matching parenthesis: `[]`,`{}`,`()`
 

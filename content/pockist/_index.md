@@ -1,8 +1,9 @@
 ---
 title: "Pockist"
-weight: 4
+weight: 2
 ---
 
 # Pockist
-
-Documentation for the Pockist project.
+## my side project
+- [pockist.com/](https://pockist.com/)
+- [github.com/tannerr-dev/pockist](https://github.com/tannerr-dev/pockist)

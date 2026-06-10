@@ -1,7 +1,4 @@
 ---
-title: "DBManager & Components Architecture"
-description: "How DBManager (the client-side data layer) and the frontend Web Components work together."
-date: 2026-06-02
 weight: 10
 ---
 

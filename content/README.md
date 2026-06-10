@@ -1,6 +1,6 @@
 ---
 title: "this site readme"
-weight: 2
+weight: 1
 ---
 # My Docs
 
@@ -13,7 +13,12 @@ A dark-themed Hugo documentation site. Drop markdown files into `content/` folde
 - **Hugo** extended version (tested with v0.123.7+; theme v9 requires minimum v0.68)
 - **Git** (for submodule management)
 
-Install Hugo: https://gohugo.io/installation/
+# Hugo Book Theme
+
+[![Hugo](https://img.shields.io/badge/hugo-0.68-blue.svg)](https://gohugo.io)
+![Build with Hugo](https://github.com/alex-shpak/hugo-book/workflows/Build%20with%20Hugo/badge.svg)
+
+### [Hugo](https://gohugo.io) documentation theme as simple as plain book
 
 ---
 
