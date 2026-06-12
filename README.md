@@ -1,3 +1,7 @@
+# new home
+https://codeberg.org/tannerr/my-docs
+
+
 # My Docs
 
 A dark-themed Hugo documentation site. Drop markdown files into `content/` folders and Hugo auto-generates routes, a sidebar, a grouped homepage, and section index pages.
